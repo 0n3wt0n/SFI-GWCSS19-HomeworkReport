@@ -11752,20 +11752,28 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id=<title>Modeling the Flow of Contradictory Accounts</title> </h1>
+<h1 id=<title>Fake News: Modeling the Flow of Contradictory Accounts</title> </h1>
 <h2 id="Olivia-Newton-and-Niclas-Lovsjo">Olivia B. Newton and Niclas Lovsjö</h2>
-<h4 id="selcan.mutgan@liu.se-;-mrthomp@umich.edu">olivianewton@knights.ucf.edu ; niclas.lovsjo@liu.se<a class="anchor-link" href="#olivianewton@knights.ucf.edu-;-niclas.lovsjo@liu.se">&#182;</a></h4>
+<h4 id="selcan.mutgan@liu.se-;-mrthomp@umich.edu">olivianewton@knights.ucf.edu ; niclas.lovsjo@liu.se</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduction">Introduction</h2>
+<p>In this paper, we describe the development of a model undertaken at the the Santa Fe Institute's Graduate Workshop in Computational Social Science.
+Specifically, we were tasked with modeling the flow of contradicting accounts about an event across a group.
+We interpret this scenario as a model of information spread in a network.
+Based on this, we consider two relevant phenomena: information cascades and herd behavior.
+In the following sections we describe background and rationale for our decisions.  </p>
 
-<!-- <h3 id="Santa-Fe-Institute-GWCSS-2019">Santa Fe Institute GWCSS 2019<a class="anchor-link" href="#Santa-Fe-Institute-GWCSS-2019">&#182;</a></h3><blockquote><p>Consider the following situation:
-Agents, connected to one another via a network, want to exchange information.
-Each agent has a choice of whether to send high or low quality information, and it takes some time to verify the quality.
-Model how information and trust flows on the network (with and without the possibility of collusion).
-Model, using whatever techniques you wish, the above scenario.
-Explicitly state your model and key assumptions.
-Summarize key results.
-Suggest some potentially interesting future directions and questions for the model.
-Suggest some standard social science scenarios that could be usefully modeled using such a process.</p>
-</blockquote> -->
+<h3> Background </h3>
+
+<p> ....define information cascades and herd behavior... </p>
+<p>
 
 </div>
 </div>
@@ -11775,26 +11783,11 @@ Suggest some standard social science scenarios that could be usefully modeled us
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2>
+<h2 id="Method">Method</h2>
 
-<p> In this paper, we describe a modeling project completed during the Santa Fe Institute's Graduate Workshop in Computational Social Science.  </p>
-
-<!-- <p>In this study, we explore the dynamics of information diffusion on static networks where trust is at the center of information exchange. Senders of information in our model differentiate between recipients who they <em>trust</em> and recipients who they do <em>not</em> trust when they share their 'opinion.' Recipients likewise distinguish between <em>trustworthy</em> and <em>not trustworthy</em> senders. We model different decision processes for both senders and recipients that are dependant on these trust evaluations. Further, agents take time to process information that came from untrustworthy sources, and are able to update trust values as the model proceeds.</p>
-<p>These modelling choices were motivated by our assumption that the way actors incorporate information does not only depend on the information itself but also on the structure of the network and people's trust of their 'neighbors.'</p>
-<p>We find that the extent of connectedness in the network and the exogenously set threshold for determining the trustworthiness of signal recipients are key to the dynamics of our model.</p>
--->
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Method">Method<a class="anchor-link" href="#Method">&#182;</a></h2>
-
-<p>We used a network-based approach to model the flow of conradictory accounts about an event across a group. Toward this end, we constructed a undirected lattice graph with some random additions of edges, in statistical computation software R (CITE).</p>
-<p>Contradictory accounts are introduced into the network from two distinct sources, and agents evaluate whether they will distort the information on the basis of its coherency with their beliefs before sharing it with their neighbors. </p>
+<p>We used a network-based approach to model the flow of conradictory accounts about an event across a group.
+Toward this end, we constructed a undirected lattice graph with some random addition of edges, in statistical computation software R (CITE).
+Contradictory accounts are introduced into the network from two distinct sources, and agents evaluate whether they will distort the information on the basis of its coherency with their beliefs before sharing it with their neighbors. </p>
 <p>In the model, we assume the following:
   The structure of the network remains unchanged over time
 
@@ -11809,7 +11802,9 @@ We were interested in
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Results">Results<a class="anchor-link" href="#Results">&#182;</a></h2><p>Altogether, we have nine sets of results: trust threshhold and average degree are varied together, each at three levels. Average degree is varied between 5 and 20 and trust threshold is varied between 0.2 and 0.7 as can be seen in the table below.</p>
+<h2 id="Results">Results</h2>
+
+
 <table>
 <thead><tr>
 <th>avg degree</th>
