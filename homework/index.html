@@ -11832,75 +11832,91 @@ to spread clock-wise through the lattice.</p>
 
 <p> The focal node sends out its account value to all its neighbors.
 This will not make a change to the neighbors with the same belief system and similar
-account values, i.e. the counter-clockwise nodes. Sending it ”forward” to the
+account values, i.e., the counter-clockwise nodes. Sending it ”forward” to the
 opposing neighbors will change the opposing neighbors value closer to the value of the focal node.
 After these account-value-messages have been sent for each iteration,
 the nodes update their belief system.</p>
 
 <p> If the mean of the neighbors account values</p>
 
+
+<table id="tblOne" style="width:50%; float:left">
+<thead><tr>
+<th style="text-align:center">Account Origin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Boundary Spanner - Boundary Spanner</td>
+</tr>
+<tr>
+<td style="text-align:center">Boundary Spanner - Regular Node</td>
+</tr>
+<tr>
+<td style="text-align:center">Regular Node - Regular Node</td>
+</tr>
+</tbody>
+</table>
+
+<table id="tblOne" style="width:50%; float:left">
+<thead><tr>
+<th style="text-align:center">Threshold to Distort</th>
+</tr>
+</thead>
+<tbody>
+</tr>
+<tr>
+<td style="text-align:center">0.25</td>
+</tr>
+<tr>
+<td style="text-align:center">0.5</td>
+</tr>
+<tr>
+<td style="text-align:center">0.75</td>
+</tr>
+</tbody>
+</table>
+
 <BODY>
 <IMG SRC="original_one.png" width="600" height="800">
 </BODY>
+
+<h4 id="Figure-1:-Modal-Run-of-the-Model">Figure 1: Placeholder</h4>
+<p> ... </p>
 
 <BODY>
 <IMG SRC="roundtheclock.gif">
 </BODY>
 
+<h4 id="Figure-1:-Modal-Run-of-the-Model">Figure 2: Placeholder</h4>
+
+<p> ... </p>
 
 <BODY>
 <IMG SRC="individuals1.png" width="600" height="800">
 </BODY>
 
+<h4 id="Figure-1:-Modal-Run-of-the-Model">Figure 3: Placeholder</h4>
+
+<p> ... </p>
+
 <BODY>
 <IMG SRC="individuals2.png" width="600" height="800">
 </BODY>
+
+<h4 id="Figure-1:-Modal-Run-of-the-Model">Figure 4: Placeholder</h4>
+
+<p> ... </p>
 
 <BODY>
 <IMG SRC="individuals3.png" width="600" height="800">
 </BODY>
 
-<table>
-<thead><tr>
-<th>avg degree</th>
-<th></th>
-<th>trust threshold</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>low</td>
-<td>medium</td>
-<td>high</td>
-</tr>
-<tr>
-<td>low</td>
-<td>5, 0.2</td>
-<td>5, 0.5</td>
-<td>5, 0.7</td>
-</tr>
-<tr>
-<td>medium</td>
-<td>10, 0.2</td>
-<td>10, 0.5</td>
-<td>10, 0.7</td>
-</tr>
-<tr>
-<td>high</td>
-<td>20, 0.2</td>
-<td>20, 0.5</td>
-<td>20, 0.7</td>
-</tr>
-</tbody>
-</table>
-
-<h4 id="Figure-1:-Modal-Run-of-the-Model">Figure 1: Modal Run of the Model</h4>
+<h4 id="Figure-1:-Modal-Run-of-the-Model">Figure 5: Placeholder</h4>
 
 <p> ... </p>
 
-<h4 id="Figure-3:-Opinion-Dominance-Dynamics">Figure 3: Opinion Dominance Dynamics</h4>
+<h4 id="Figure-3:-Opinion-Dominance-Dynamics">Figure 6: Placeholder</h4>
 
 
 </div>
@@ -11917,7 +11933,10 @@ the nodes update their belief system.</p>
 <h3 id="Future-Directions">Future Directions</h3>
 
 <p>Our model can be improved upon and extended in several ways.
-Future work can explore how differences in network structure can be used to produce different patterns of information flow. This includes both evaluations of dynamic networks and different networks (e.g., scale-free networks, random networks, etc.) </p>
+Future work can explore how differences in network structure can be used to produce different patterns of information flow. This includes both evaluations of dynamic networks and different networks (e.g., scale-free networks, random networks, etc.).
+In the model presented here, all nodes are governed by same belief change rule; nodes change their beliefs when the majority of their neighbors hold beliefs that differ from their own.
+The likelihood of individual to change their beliefs can be explored further and used to increased the heteogeneity of the nodes in the network.
+  </p>
 
 </div>
 </div>
