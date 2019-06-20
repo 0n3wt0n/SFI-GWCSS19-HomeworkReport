@@ -11792,15 +11792,18 @@ In the following sections, we describe our model and results, in addition to pot
 <h2 id="Method">Method</h2>
 
 <p>We used a network-based approach to model the flow of conradictory accounts about an event across a group.
+Our goal with this model was to better understand how (1) variations in account sources and (2) nodes' threshold to distort information can result in convergence and lead to the emergence of a "winning" account or a middle ground.
 Toward this end, we constructed a undirected lattice graph with some random addition of edges, in statistical computation software R (R Core Team, 2018).
 Contradictory accounts are introduced into the network from two distinct sources, and the nodes evaluate whether they will distort the information on the basis of its coherency with their beliefs before sharing it with their neighbors.
-Additionally, agents change their beliefs if they are sufficiently inconsistent with the average account value held by their neighbors.
-Our goal with this model was to better understand how variations in account sources and nodes' threshold can both result in convergence and lead to the emergence of a winning account or a middle ground.
-In Table 1</p>
+The variations tested in our simulations are presented in Table 1.
+Nodes change their beliefs if they are sufficiently inconsistent with the average account value held by their neighbors.
+All nodes are assigned a particular belief the model is intiialized; this is based on chance (Table 2a).
+In addition to this, two nodes-the account sources-are selected to recieve a particular account value, either 0.25 or 0.75 (Table 2b). </p>
 
 
 
 <table id="tblOne" style="width:50%; float:left">
+<caption>Table 1a. Different combinations of account sources used in model.</caption>
 <thead><tr>
 <th style="text-align:center">Account Sources</th>
 </tr>
@@ -11819,6 +11822,7 @@ In Table 1</p>
 </table>
 
 <table id="tblOne" style="width:50%; float:left">
+<caption>Table 1b. Different levels of threshold to distort used in model.</caption>
 <thead><tr>
 <th style="text-align:center">Threshold to Distort</th>
 </tr>
@@ -11830,6 +11834,40 @@ In Table 1</p>
 </tr>
 <tr>
 <td style="text-align:center">0.5</td>
+</tr>
+<tr>
+<td style="text-align:center">0.75</td>
+</tr>
+</tbody>
+</table>
+
+
+<table id="tblOne" style="width:50%; float:left">
+<caption>Table 2a. Belief representation in model.</caption>
+<thead><tr>
+<th style="text-align:center">Belief Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+
+<table id="tblOne" style="width:50%; float:left">
+<caption>Table 2a. Accounts at model intiialization.</caption>
+<thead><tr>
+<th style="text-align:center">Account Value</th>
+</tr>
+</thead>
+<tbody>
+</tr>
+<tr>
+<td style="text-align:center">0.25</td>
 </tr>
 <tr>
 <td style="text-align:center">0.75</td>
