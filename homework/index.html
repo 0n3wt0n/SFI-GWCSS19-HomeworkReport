@@ -11939,15 +11939,22 @@ for the threshold values of 0.25, 0.5 and 0.75 of distances between the account 
 the belief system to choose to distort the account or adopt it as it is.</p>
 
 <p>For threshold value of 0.25 we can see that convergence does not happen within 50 iterations,
-but we can see that it asymptotically tends to convergence. An interesting pattern emerges here.
+but that it asymptotically tends to convergence. An interesting pattern emerges here.
 For symmetry reasons, one would intuitively believe that having two boundary spanners or two regular nodes would be
 two end-points of a spectrum of fluctuations, with one each being in the middle. But as we can
 see the largest fluctuation happens when we have one each. The hypothetical explanation for this
 behaviour is the following: </p>
 
 <p> Let us begin with noting that the starting amplitude is greatest for the slowest converging
-combination. After this initial iteration it is on average a doubly monotonic process until convergence.
- This means that the initial state is what is driving the difference.
+combination. After this initial iteration it is on average a doubly monotonic process until convergence. This indicates
+    that the processes might be the same, just starting from different amplitudes. So why does the One each start off with 
+    a higher amplitude? We believe this is due to the low threshold to distort, such that regular node (starting off 
+    with either 0.25 or 0.75) is able to start influencing its neighbors (starting at 0.5) immediately. If the threshold
+    is higher then the account values wouldn't penetrate through from the regular nodes, but instead become distorted to 
+    whatever belief system that the neighbors have and the values wouldn't become so extreme, but instead stay around the
+    middle ground.</p>
+
+ 
 
  Boundary spanners process... and theother process. difference....</p>
 
