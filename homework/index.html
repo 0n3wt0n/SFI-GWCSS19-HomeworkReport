@@ -11796,10 +11796,14 @@ Our goal with this model was to better understand how (1) variations in account 
 Toward this end, we constructed a undirected lattice graph with some random addition of edges, in statistical computation software R (R Core Team, 2018).
 Contradictory accounts are introduced into the network from two distinct sources, and the nodes evaluate whether they will distort the information on the basis of its coherency with their beliefs before sharing it with their neighbors.
 The variations evaluated in our model are presented in Table 1.
-Nodes change their beliefs if they are sufficiently inconsistent with the average account value held by their neighbors.
 All nodes have an equal probability of being assigned particular belief when the model is intiialized (Table 2a).
 The degree to which nodes will distort the account value is also assigned at model intialization and is drawn from a uniform distribution between 0 and 0.25.
 In addition to this, two nodes-the account sources-are selected to recieve a particular account value (Table 2b).
+Nodes change their beliefs if they are sufficiently inconsistent with the average account value held by their neighbors.
+More specifically, the node subtracts the account value provided to them by their neighbor from their belief value to determine if it is greater than the threshold to distort.
+If the absolute value of the difference is greater than the threshold to distort, then the node changes the account value based on their distortion value.
+The direction in which the node distorts the value is based on the belief.
+In other words, if the belief is 1, then agent distorts the account so that it is closer to 1.
 </p>
 
 
@@ -11898,7 +11902,6 @@ In addition to this, two nodes-the account sources-are selected to recieve a par
 </BODY>
 
 <h4 id="Figure-1:-Network-Structure">Figure 1: Network structure used to model flow of contradictory accounts across a group.</h4>
-<p> ... </p>
 
 </div>
 </div>
@@ -11953,17 +11956,12 @@ see the largest fluctuation happens when we have one each. The hypothetical expl
 behaviour is the following: </p>
 
 <p> Let us begin with noting that the starting amplitude is greatest for the slowest converging
-combination. After this initial iteration it is on average a doubly monotonic process until convergence. This indicates
-    that the processes might be the same, just starting from different amplitudes. So why does the One each start off with 
-    a higher amplitude? We believe this is due to the low threshold to distort, such that regular node (starting off 
-    with either 0.25 or 0.75) is able to start influencing its neighbors (starting at 0.5) immediately. If the threshold
-    is higher then the account values wouldn't penetrate through from the regular nodes, but instead become distorted to 
-    whatever belief system that the neighbors have and the values wouldn't become so extreme, but instead stay around the
+combination. After this initial iteration it is on average a doubly monotonic process until convergence. T
+his indicates that the processes might be the same, just starting from different amplitudes. So why does the One each start off with
+a higher amplitude? We believe this is due to the low threshold to distort, such that regular node (starting off with either 0.25 or 0.75) is able to start influencing its neighbors (starting at 0.5) immediately.
+If the threshold to distort is higher then the account values wouldn't penetrate through from the regular nodes, but instead become distorted to
+whatever belief system that the neighbors have and the values wouldn't become so extreme, but instead stays near the
     middle ground.</p>
-
- 
-
- Boundary spanners process... and theother process. difference.... </p>
 
 
 
