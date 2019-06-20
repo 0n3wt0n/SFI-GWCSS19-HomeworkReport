@@ -11767,14 +11767,14 @@ div#notebook {
 <h2 id="Introduction">Introduction</h2>
 <p>In this paper, we describe a model developed at the the Santa Fe Institute's Graduate Workshop in Computational Social Science.
 Specifically, we were tasked with modeling the flow of contradicting accounts about an event across a group.
-We interpret this scenario as a model of information spread in a network.
+We interpret this scenario as information spread in a network.
 Based on this, we draw inspiration from two known phenomena: information cascades and herd behavior.
 Information cascades describe the spread of information and researchers have, for example, aimed to better understand the role of influential "spreaders" in networks (Jalili & Perc, 2017).
 Although both emphasize the sequence of individuals making a decision, some researchers distinguish between information cascades and herd behavior in terms of the private information held by individuals. In these descriptions, individuals engaging in herd behavior may take into account the private information they hold whereas indivdiuals in an information casecade ignore their privately-held information (Çelen & Kariv, 2004).
 In line with studies of information cascades, we contend that the individual who introduces the account into the network may play a critical role in determining the emergent pattern of information flow.
 Boundary spanners, as the name implies, serve as a bridge between groups and can thus facilitate the movement of ideas across a network (Shah et al., 2018).
 Boundary spanners are also oftentimes opinion leaders—that is, they are individuals are able to effectively influence the attitudes and opinions of others (Matous & Wang, 2019; Rogers, 2003).
-But new types of would-be opinion leaders have emerged with the the rise of social media.
+But new types of would-be opinion leaders have emerged with the rise of social media.
 In the relevant literature, these individuals are commonly referred to as "prosumers".
 Unlike boundary spanners, prosumers are not characterized by their position in a network or their ability to reach different audiences.
 Instead, prosumers are individuals who consume, distribute, and produce content to a relatively high degree compared to others in the network.
@@ -11793,54 +11793,11 @@ In the following sections, we describe our model and results, in addition to pot
 
 <p>We used a network-based approach to model the flow of conradictory accounts about an event across a group.
 Toward this end, we constructed a undirected lattice graph with some random addition of edges, in statistical computation software R (R Core Team, 2018).
-Contradictory accounts are introduced into the network from two distinct sources, and agents evaluate whether they will distort the information on the basis of its coherency with their beliefs before sharing it with their neighbors. Additionally, agents change their beliefs if they are sufficiently inconsistent with their neighbors' beliefs.
-We were interested in......understanding the relationship between variations in account sources and threshold to distort in terms of convergence....additionally interested in determining if a particular account will 'win' or if it will move closer to center ......need to rewrite this</p>
+Contradictory accounts are introduced into the network from two distinct sources, and the nodes evaluate whether they will distort the information on the basis of its coherency with their beliefs before sharing it with their neighbors.
+Additionally, agents change their beliefs if they are sufficiently inconsistent with the average account value held by their neighbors.
+Our goal with this model was to better understand how variations in account sources and nodes' threshold can both result in convergence and lead to the emergence of a winning account or a middle ground.
+In Table 1</p>
 
-
-<h3 id="Model-Description">Model Description</h2>
-<p>In the model, we assume the following:
-<ul>
-  <li>The structure of the network remains unchanged over time</li>
-  <li>Agents hold a set of beliefs that are relevant to the contradicting accounts</li>
-  <li>An agent's beliefs can change over time</li>
-  <li>An account of an event is more or less coherent with an agent's beliefs</li>
-  <li>Agents will distort an account if it conflicts with their beliefs</li>
-  <li>Agents will always decide to share account their neighbors</li>
-  <li>Agents will engage in bidirectional sharing of account</li>
-</ul>
-</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Results">Results</h2>
-
-<h3> The Process </h3>
-
-<p> There are two simultaneous interacting processes acting on this graph.
-On one hand we have the belief system that is changing, and on the other
-the account value of the observed event.</p>
-
-<p> The process starts off with a random initialization of the belief system.
-The neighborhoods that happen to have many of their neighbors similar in terms
-of their belief systems will be resistant to changes from their opposing surrounding nodes.
-This means that there is an early transition from the random initialization into
-a locked-in state of clustered belief systems. Once these are settled they start
-to spread clock-wise through the lattice.</p>
-
-<p> The focal node sends out its account value to all its neighbors.
-This will not make a change to the neighbors with the same belief system and similar
-account values, i.e., the counter-clockwise nodes. Sending it ”forward” to the
-opposing neighbors will change the opposing neighbors value closer to the value of the focal node.
-After these account-value-messages have been sent for each iteration,
-the nodes update their belief system.</p>
-
-<p> If the mean of the neighbors account values</p>
 
 
 <table id="tblOne" style="width:50%; float:left">
@@ -11880,12 +11837,62 @@ the nodes update their belief system.</p>
 </tbody>
 </table>
 
+
+&nbsp;&nbsp;
+
+<p>In the model, we assumed the following:
+<ul>
+  <li>the structure of the network remains unchanged over time (see Figure 1);</li>
+  <li>agents hold a set of beliefs that are relevant to the contradicting accounts;</li>
+  <li>an agent's beliefs can change over time;</li>
+  <li>an account of an event is more or less coherent with an agent's beliefs;</li>
+  <li>agents will distort an account if it conflicts with their beliefs;</li>
+  <li>agents will always decide to share account their neighbors;</li>
+  <li>agents will engage in bidirectional sharing of account.</li>
+</ul>
+</p>
+
+
 <BODY>
 <IMG SRC="original_one.png" width="600" height="800">
 </BODY>
 
 <h4 id="Figure-1:-Network-Structure">Figure 1: Network structure used to model flow of contradictory accounts across a group.</h4>
 <p> ... </p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Results">Results</h2>
+
+<h3> The Process </h3>
+
+<p> There are two simultaneous interacting processes acting on this graph.
+On one hand, we have the belief system that is changing, and, on the other,
+the account value of the observed event.</p>
+
+<p> The process starts off with a random initialization of the belief system.
+The neighborhoods that happen to have many of their neighbors similar in terms
+of their belief systems will be resistant to changes from their opposing surrounding nodes.
+This means that there is an early transition from the random initialization into
+a locked-in state of clustered belief systems. Once these are settled they start
+to spread clock-wise through the lattice.</p>
+
+<p> The focal node sends out its account value to all its neighbors.
+This will not make a change to the neighbors with the same belief system and similar
+account values, i.e., the counter-clockwise nodes. Sending it ”forward” to the
+opposing neighbors will change the opposing neighbors value closer to the value of the focal node.
+After these account-value-messages have been sent for each iteration,
+the nodes update their belief system.</p>
+
+<p> If the mean of the neighbors account values</p>
+
+
 
 <BODY>
 <IMG SRC="roundtheclock.gif">
@@ -11931,7 +11938,7 @@ the nodes update their belief system.</p>
 
 <h2 id="Discussion">Discussion</h2>
 
-The results of the model suggest that ...
+<p>The results of the model suggest that </p>
 
 <h3 id="Future-Directions">Future Directions</h3>
 
