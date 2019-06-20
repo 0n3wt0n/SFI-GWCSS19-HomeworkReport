@@ -11921,7 +11921,7 @@ The neighborhoods that happen to have many of their neighbors similar in terms
 of their belief systems will be resistant to changes from their opposing surrounding nodes.
 This means that there is an early transition from the random initialization into
 a locked-in state of clustered belief systems. Once these are settled they start
-to spread clock-wise through the lattice.</p>
+to spread clock-wise through the lattice, as illustrated in Figure 2.</p>
 
 <p> The focal node sends out its account value to all its neighbors.
 This will not make a change to the neighbors with the same belief system and similar
@@ -11930,6 +11930,13 @@ opposing neighbors will change the opposing neighbors value closer to the value 
 After these account-value-messages have been sent for each iteration,
 the nodes update their belief system. If the mean of the neighbors account values is less than or equal to 0.5 then the focal node will
 change its belief system to 0, and 1 if it is greater than 0.5.</p>
+
+<BODY>
+<IMG SRC="roundtheclock.gif">
+</BODY>
+
+<h4 id="Figure-2:-Animation">Figure 2: Animation of belief (node shape) and account value (node color) change in network over time.</h4>
+
 
 <h3> Outcomes </h3>
 
@@ -11949,37 +11956,28 @@ behaviour is the following: </p>
 combination. After this initial iteration it is on average a doubly monotonic process until convergence.
  This means that the initial state is what is driving the difference.
 
- Boundary spanners process... and theother process. difference....</p>
+ Boundary spanners process... and theother process. difference.... </p>
+
+
 
 <BODY>
 <IMG SRC="individuals1.png" width="600" height="800">
 </BODY>
 
+<h4 id="Figure-3:-Model-TwentyFive">Figure 3: Temporal changes in account value when threshold to distort is set to 0.25.
+The nodes fail to converge on an account in less than 50 iterations but presents less variability in account in the case of regular node-regular node account sources.
+Furthermore, the nodes distort the account towards one of the intially introduced accounts.
+We observe the greatest variability in account values over time when accounts are introduced by different node types </h4>
 
-
-<BODY>
-<IMG SRC="roundtheclock.gif">
-</BODY>
-
-<h4 id="Figure-2:-Animation">Figure 2: Animation of belief (node shape) and account value (node color) change in network over time. SPECIFY CONDITIONS</h4>
-
-<p> ... </p>
-
-<BODY>
-<IMG SRC="individuals1.png" width="600" height="800">
-</BODY>
-
-<h4 id="Figure-3:-Model-TwentyFive">Figure 3: Temporal changes in account value when threshold to distort is set to 0.25. A line represents the mean account value for a given node in the network. </h4>
-
-<p> ... </p>
 
 <BODY>
 <IMG SRC="individuals2.png" width="600" height="800">
 </BODY>
 
-<h4 id="Figure-3:-Model-Fifty">Figure 4: Temporal changes in account value when threshold to distort is set to 0.5.</h4>
+<h4 id="Figure-3:-Model-Fifty">Figure 4: Temporal changes in account value when threshold to distort is set to 0.5.
+In  this case, the nodes converge on an account between approximately 20 and 30 iterations. Across initial account sources, the nodes converge to a middle ground.
+We observe the greatest fluctuation in accounts over time when they are intially introduced by similar nodes compared to when they are introduced by different types of nodes (i.e.,  one boundary spanner and one regular node). </h4>
 
-<p> ... </p>
 
 <BODY>
 <IMG SRC="individuals3.png" width="600" height="800">
@@ -11988,9 +11986,7 @@ combination. After this initial iteration it is on average a doubly monotonic pr
 <h4 id="Figure-5:-Model-SeventyFive">Figure 5: Temporal changes in account value when threshold to distort is set to 0.75.
 Regardless of account source, the nodes quickly converge on an account value (less than 10 iterations).
 However, the direction of the distortion differs for each account source.
-Interestingly, when the accounts originate from two distinct sources (i.e., one boundary spanner and one regular node) the nodes converge to a value near the middle ground but when the accounts originate from similar sources the nodes converge to one account. </h4>
-
-<p> ... </p>
+Interestingly, when the accounts originate from two different sources (i.e., one boundary spanner and one regular node) the nodes converge to a value near the middle ground but when the accounts originate from similar sources the nodes converge to one account. </h4>
 
 
 </div>
@@ -12004,10 +12000,7 @@ Interestingly, when the accounts originate from two distinct sources (i.e., one 
 
 <h2 id="Discussion">Discussion</h2>
 
-<p>The results of the model suggest that </p>
-
-<h3 id="Future-Directions">Future Directions</h3>
-
+<p>The results of the model suggest that position of the nodes that introduce the accounts and the threshold to distort can produce differences in terms of the time to converge and the convergence to a particular account or a middle ground. </p>
 <p>Our model can be improved upon and extended in several ways.
 Future work can explore how differences in network structure can be used to produce different patterns of information flow. This includes both evaluations of dynamic networks and different networks (e.g., scale-free networks, random networks, etc.).
 In the model presented here, all nodes are governed by same belief change rule; nodes change their beliefs when the majority of their neighbors hold beliefs that differ from their own.
