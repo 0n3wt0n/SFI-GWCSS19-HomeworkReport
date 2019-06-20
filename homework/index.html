@@ -11763,17 +11763,19 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+
 <h2 id="Introduction">Introduction</h2>
 <p>In this paper, we describe the development of a model undertaken at the the Santa Fe Institute's Graduate Workshop in Computational Social Science.
 Specifically, we were tasked with modeling the flow of contradicting accounts about an event across a group.
 We interpret this scenario as a model of information spread in a network.
-Based on this, we consider two relevant phenomena: information cascades and herd behavior.
-In the following sections we describe background and rationale for our decisions.  </p>
+Based on this, we consider two phenomena: information cascades and herd behavior.
+In the following section, we identify relevant concepts that drive the implementation of our model.
+We then describe our model and results.</p>
 
 <h3> Background </h3>
 
 <p> ....define information cascades and herd behavior... </p>
-<p>
+<p> The flow of information through a network </p>
 
 </div>
 </div>
@@ -11789,8 +11791,15 @@ In the following sections we describe background and rationale for our decisions
 Toward this end, we constructed a undirected lattice graph with some random addition of edges, in statistical computation software R (CITE).
 Contradictory accounts are introduced into the network from two distinct sources, and agents evaluate whether they will distort the information on the basis of its coherency with their beliefs before sharing it with their neighbors. </p>
 <p>In the model, we assume the following:
-  The structure of the network remains unchanged over time
-
+<ul>
+  <li>The structure of the network remains unchanged over time</li>
+  <li>Agents hold a set of beliefs that are relevant to the contradicting accounts</li>
+  <li>An agent's beliefs can change over time</li>
+  <li>An account of an event is more or less coherent with an agent's beliefs</li>
+  <li>Agents will distort an account if it conflicts with their beliefs</li>
+  <li>Agents will always decide to share account their neighbors</li>
+  <li>Agents will engage in bidirectional sharing of account</li>
+</ul>
 
 We were interested in
 
@@ -11840,6 +11849,7 @@ We were interested in
 </tr>
 </tbody>
 </table>
+
 <h4 id="Figure-1:-Modal-Run-of-the-Model">Figure 1: Modal Run of the Model<a class="anchor-link" href="#Figure-1:-Modal-Run-of-the-Model">&#182;</a></h4><p><img src="cycle_behav.png" alt="&#39;Figure 1.&#39;"></p>
 <p>Above (figure 1), we present a typical 'run' of the model where the threshold is set to 0.5 and the average degree is set to 20. Each line in the line plot represents the frequency of different opinions in the population. As mentioned above, there are 8 possible opinion types. On average, we see that the run begins with competition between various opinions, but that eventually a single opinion comes to dominate the population. This opinion is then occasionally overthrown by another opinion. This is despite the fact that the average level of trust across agents is stable throughout the duration of the model run (as shown in figure 2 below).</p>
 <h4 id="Figure-2:-Trust-'change'-across-model-runs">Figure 2: Trust 'change' across model runs<a class="anchor-link" href="#Figure-2:-Trust-'change'-across-model-runs">&#182;</a></h4><p><img src="trust_change.png" alt="Figure 2."></p>
@@ -11867,6 +11877,7 @@ We were interested in
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+
 <h2 id="Code-Appendix">Code Appendix<a class="anchor-link" href="#Code-Appendix">&#182;</a></h2>
 </div>
 </div>
