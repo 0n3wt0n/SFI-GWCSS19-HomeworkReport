@@ -11928,9 +11928,32 @@ This will not make a change to the neighbors with the same belief system and sim
 account values, i.e., the counter-clockwise nodes. Sending it ”forward” to the
 opposing neighbors will change the opposing neighbors value closer to the value of the focal node.
 After these account-value-messages have been sent for each iteration,
-the nodes update their belief system.</p>
+the nodes update their belief system. If the mean of the neighbors account values is less than or equal to 0.5 then the focal node will
+change its belief system to 0, and 1 if it is greater than 0.5.</p>
 
-<p> If the mean of the neighbors account values</p>
+<h3> Outcomes </h3>
+
+<p> The following three plots shows the output of the simulations for the combinations
+Boundary spanner - Boundary spanner, Boundary spanner - Regular node, Regular node - Regular node
+for the threshold values of 0.25, 0.5 and 0.75 of distances between the account value and
+the belief system to choose to distort the account or adopt it as it is.</p>
+
+<p>For threshold value of 0.25 we can see that convergence does not happen within 50 iterations,
+but we can see that it asymptotically tends to convergence. An interesting pattern emerges here.
+For symmetry reasons, one would intuitively believe that having two boundary spanners or two regular nodes would be
+two end-points of a spectrum of fluctuations, with one each being in the middle. But as we can
+see the largest fluctuation happens when we have one each. The hypothetical explanation for this
+behaviour is the following: </p>
+
+<p> Let us begin with noting that the starting amplitude is greatest for the slowest converging
+combination. After this initial iteration it is on average a doubly monotonic process until convergence.
+ This means that the initial state is what is driving the difference.
+
+ Boundary spanners process... and theother process. difference....</p>
+
+<BODY>
+<IMG SRC="individuals1.png" width="600" height="800">
+</BODY>
 
 
 
