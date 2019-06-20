@@ -11765,7 +11765,7 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 
 <h2 id="Introduction">Introduction</h2>
-<p>In this paper, we describe the development of a model undertaken at the the Santa Fe Institute's Graduate Workshop in Computational Social Science.
+<p>In this paper, we describe a model developed at the the Santa Fe Institute's Graduate Workshop in Computational Social Science.
 Specifically, we were tasked with modeling the flow of contradicting accounts about an event across a group.
 We interpret this scenario as a model of information spread in a network.
 Based on this, we draw inspiration from two known phenomena: information cascades and herd behavior.
@@ -11791,7 +11791,10 @@ Boundary spanners are also oftentimes opinion leaders—that is, they are indivi
 
 <p>We used a network-based approach to model the flow of conradictory accounts about an event across a group.
 Toward this end, we constructed a undirected lattice graph with some random addition of edges, in statistical computation software R (R Core Team, 2018).
-Contradictory accounts are introduced into the network from two distinct sources, and agents evaluate whether they will distort the information on the basis of its coherency with their beliefs before sharing it with their neighbors. </p>
+Contradictory accounts are introduced into the network from two distinct sources, and agents evaluate whether they will distort the information on the basis of its coherency with their beliefs before sharing it with their neighbors. Additionally, agents change their beliefs if they are sufficiently inconsistent with their neighbors' beliefs.
+We were interested in......understanding the relationship between variations in account sources and threshold to distort in terms of convergence....additionally interested in determining if a particular account will 'win' or if it will move closer to center ......need to rewrite this ....</p>
+
+
 <h3 id="Model-Description">Model Description</h2>
 <p>In the model, we assume the following:
 <ul>
@@ -11804,8 +11807,6 @@ Contradictory accounts are introduced into the network from two distinct sources
   <li>Agents will engage in bidirectional sharing of account</li>
 </ul>
 </p>
-
-<p>We were interested in </p>
 
 </div>
 </div>
@@ -11842,7 +11843,7 @@ the nodes update their belief system.</p>
 
 <table id="tblOne" style="width:50%; float:left">
 <thead><tr>
-<th style="text-align:center">Account Origin</th>
+<th style="text-align:center">Account Sources</th>
 </tr>
 </thead>
 <tbody>
@@ -11952,7 +11953,7 @@ The likelihood of individual to change their beliefs can be explored further, e.
 <p>R Core Team. 2018. R: A Language and Environment for Statistical Computing. Vienna, Austria: R Foundation for Statistical Computing. <cite><a href="https://www.R-project.org">https://www.R-project.org</a></cite></p>
 <p>Matous, P., & Wang, P. (2019). External exposure, boundary-spanning, and opinion leadership in remote communities: A network experiment. Social Networks, 56, 10–22. <cite><a href="https://doi.org/10.1016/j.socnet.2018.08.002">https://doi.org/10.1016/j.socnet.2018.08.002</a></cite></p>
 <p>Rogers, E. M. (2003). Diffusion of innovations (Fifth Edition). New York: Free Press.</p>
-<p>Shah, N. P., Levin, D. Z., & Cross, R. (2018). Secondhand social capital: Boundary spanning, secondhand closure, and individual performance. Social Networks, 52, 18–27. <cite><a href="https://doi.org/10.1016/j.socnet.2017.04.005">https://doi.org/10.1016/j.socnet.2017.04.005</a></cite></p> 
+<p>Shah, N. P., Levin, D. Z., & Cross, R. (2018). Secondhand social capital: Boundary spanning, secondhand closure, and individual performance. Social Networks, 52, 18–27. <cite><a href="https://doi.org/10.1016/j.socnet.2017.04.005">https://doi.org/10.1016/j.socnet.2017.04.005</a></cite></p>
 
 </div>
 </div>
