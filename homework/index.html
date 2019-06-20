@@ -11770,7 +11770,7 @@ Specifically, we were tasked with modeling the flow of contradicting accounts ab
 We interpret this scenario as a model of information spread in a network.
 Based on this, we draw inspiration from two known phenomena: information cascades and herd behavior.
 In the following section, we identify relevant concepts that drive the implementation of our model.
-We then describe our model and results.</p>
+We then describe our model, results, and opportunities for future research.</p>
 
 <h3> Background </h3>
 
@@ -11790,7 +11790,7 @@ Boundary spanners are also oftentimes opinion leaders—that is, they are indivi
 <h2 id="Method">Method</h2>
 
 <p>We used a network-based approach to model the flow of conradictory accounts about an event across a group.
-Toward this end, we constructed a undirected lattice graph with some random addition of edges, in statistical computation software R (CITE).
+Toward this end, we constructed a undirected lattice graph with some random addition of edges, in statistical computation software R (R Core Team, 2018).
 Contradictory accounts are introduced into the network from two distinct sources, and agents evaluate whether they will distort the information on the basis of its coherency with their beliefs before sharing it with their neighbors. </p>
 <p>In the model, we assume the following:
 <ul>
@@ -11853,12 +11853,12 @@ Contradictory accounts are introduced into the network from two distinct sources
 </tbody>
 </table>
 
-<h4 id="Figure-1:-Modal-Run-of-the-Model">Figure 1: Modal Run of the Model
-</h4><p><img src="cycle_behav.png" alt="&#39;Figure 1.&#39;"></p>
+<h4 id="Figure-1:-Modal-Run-of-the-Model">Figure 1: Modal Run of the Model</h4>
 
 <p> ... </p>
 
-<h4 id="Figure-3:-Opinion-Dominance-Dynamics">Figure 3: Opinion Dominance Dynamics</h4><p><img src="opinion_dominance.png" alt="Figure 3."></p>
+<h4 id="Figure-3:-Opinion-Dominance-Dynamics">Figure 3: Opinion Dominance Dynamics</h4>
+
 
 </div>
 </div>
@@ -11869,7 +11869,7 @@ Contradictory accounts are introduced into the network from two distinct sources
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 
-<h2 id="Discussion-and-Future-Directions">Discussion and Future Directions</h2><h3 id="Discussion">Discussion</h3>
+<h2 id="Discussion">Discussion</h2><h3 id="Discussion">Discussion</h3>
 
 <h3 id="Future-Directions">Future Directions</h3>
 
@@ -11879,6 +11879,20 @@ Future work can explore how differences in network structure can be used to prod
 </div>
 </div>
 </div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="References">References</h2>
+</div>
+</div>
+
+<p>R Core Team. 2018. R: A Language and Environment for Statistical Computing. Vienna, Austria: R Foundation for Statistical Computing. https://www.R-project.org</p>
+<p>Matous, P., & Wang, P. (2019). External exposure, boundary-spanning, and opinion leadership in remote communities: A network experiment. Social Networks, 56, 10–22. https://doi.org/10.1016/j.socnet.2018.08.002</p>
+<p>Rogers, E. M. (2003). Diffusion of innovations (Fifth). New York: Free Press.</p>
+<p>Shah, N. P., Levin, D. Z., & Cross, R. (2018). Secondhand social capital: Boundary spanning, secondhand closure, and individual performance. Social Networks, 52, 18–27. https://doi.org/10.1016/j.socnet.2017.04.005</p>
 
     </div>
   </div>
