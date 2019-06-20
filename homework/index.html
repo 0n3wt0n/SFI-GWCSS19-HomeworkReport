@@ -11768,14 +11768,16 @@ div#notebook {
 <p>In this paper, we describe the development of a model undertaken at the the Santa Fe Institute's Graduate Workshop in Computational Social Science.
 Specifically, we were tasked with modeling the flow of contradicting accounts about an event across a group.
 We interpret this scenario as a model of information spread in a network.
-Based on this, we consider two phenomena: information cascades and herd behavior.
+Based on this, we draw inspiration from two known phenomena: information cascades and herd behavior.
 In the following section, we identify relevant concepts that drive the implementation of our model.
 We then describe our model and results.</p>
 
 <h3> Background </h3>
 
 <p> ....define information cascades and herd behavior... </p>
-<p> The flow of information through a network </p>
+<p>We contend that the individual who introduces the account into the network may play a critical role in determining the emergent pattern of information flow.
+For example, boundary spanners, as the name implies, serve as a bridge between groups and can thus facilitate the movement of ideas across a network (Shah et al., 2018).
+Boundary spanners are also oftentimes opinion leaders—that is, they are individuals are able to effectively influence the attitudes and opinions of others (Matous & Wang, 2019; Rogers, 2003). </p>
 
 </div>
 </div>
@@ -11851,7 +11853,8 @@ Contradictory accounts are introduced into the network from two distinct sources
 </tbody>
 </table>
 
-<h4 id="Figure-1:-Modal-Run-of-the-Model">Figure 1: Modal Run of the Model<a class="anchor-link" href="#Figure-1:-Modal-Run-of-the-Model">&#182;</a></h4><p><img src="cycle_behav.png" alt="&#39;Figure 1.&#39;"></p>
+<h4 id="Figure-1:-Modal-Run-of-the-Model">Figure 1: Modal Run of the Model
+</h4><p><img src="cycle_behav.png" alt="&#39;Figure 1.&#39;"></p>
 
 <p> ... </p>
 
@@ -11871,271 +11874,12 @@ Contradictory accounts are introduced into the network from two distinct sources
 <h3 id="Future-Directions">Future Directions</h3>
 
 <p>Our model can be improved upon and extended in several ways.
-Future work can explore how differences in network structure produce </p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-<h2 id="Code-Appendix">Code Appendix</h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">choice</span>
-<span class="kn">from</span> <span class="nn">mesa</span> <span class="k">import</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">Model</span>
-<span class="kn">from</span> <span class="nn">mesa.time</span> <span class="k">import</span> <span class="n">RandomActivation</span>
-<span class="kn">from</span> <span class="nn">mesa.space</span> <span class="k">import</span> <span class="n">NetworkGrid</span>
-<span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">Enum</span>
-<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">statistics</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-
-<span class="sd">&quot;&quot;&quot;defining a function for generating the &#39;bit strings&#39; </span>
-<span class="sd">for the agents. that took too long.&quot;&quot;&quot;</span>
-
-<span class="k">def</span> <span class="nf">rbitstring</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">bits</span><span class="p">):</span>
-    <span class="n">seq</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">bits</span><span class="p">)</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="p">[</span><span class="n">choice</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
-
-<span class="sd">&quot;&quot;&quot; m dimensions&quot;&quot;&quot;</span>
-<span class="n">m</span> <span class="o">=</span> <span class="mi">3</span>
-
-<span class="sd">&quot;&quot;&quot; initial trust threshold&quot;&quot;&quot;</span>
-<span class="n">th</span> <span class="o">=</span> <span class="mf">0.2</span>
-
-<span class="sd">&quot;&quot;&quot;update amount&quot;&quot;&quot;</span>
-<span class="n">update_amt</span> <span class="o">=</span> <span class="mf">0.2</span>
-
-<span class="n">num_nodes</span> <span class="o">=</span> <span class="mi">200</span>
-
-<span class="n">initial_trust</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">mean_trust_step</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-<span class="n">step_count</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">update_high</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">update_low</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">mean_trust_agent_step</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">var_trust_step</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-<span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-<span class="n">most_common</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-
-<span class="k">class</span> <span class="nc">human</span><span class="p">(</span><span class="n">Agent</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; An agent representing a single person.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unique_id</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">unique_id</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">abit_string</span> <span class="o">=</span> <span class="n">rbitstring</span><span class="p">(</span><span class="n">m</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sig_qual</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">State</span> <span class="o">=</span> <span class="s1">&#39;UPDATING&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">uncertain_ids</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">#list of agents that sent signals to this agent about which this agent was uncertain</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">prev_bit_signals</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">trust_val</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">):</span>
-            <span class="n">trust_val</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">trust_val</span> <span class="o">=</span> <span class="n">trust_val</span>
-
-    <span class="k">def</span> <span class="nf">get_neighbors_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_neighbors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="n">include_center</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">assign_trust</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">neighbor_trust</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">trust_val</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span><span class="p">)]))</span>
-
-    <span class="k">def</span> <span class="nf">updating</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span> <span class="o">==</span> <span class="p">[]:</span>
-            <span class="k">pass</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span><span class="p">)):</span>
-                <span class="n">dec</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">&gt;</span> <span class="n">th</span><span class="p">:</span>
-                    <span class="n">dec</span> <span class="o">=</span> <span class="s1">&#39;high trust&#39;</span>
-                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">&lt;=</span> <span class="n">th</span><span class="p">:</span>
-                    <span class="n">dec</span> <span class="o">=</span> <span class="s1">&#39;low trust&#39;</span>
-                <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">schedule</span><span class="o">.</span><span class="n">agents</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">unique_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">B</span> <span class="o">=</span> <span class="n">a</span>
-                <span class="k">if</span> <span class="n">dec</span> <span class="o">==</span> <span class="s1">&#39;high trust&#39;</span><span class="p">:</span> <span class="c1"># A trusts B</span>
-
-                    <span class="k">if</span> <span class="n">B</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">th</span><span class="p">:</span> <span class="c1"># if B trusts A over the threshold, UPDATE</span>
-                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">abit_string</span><span class="p">)):</span>
-                            <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">B</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span><span class="p">]:</span>
-
-                                <span class="n">B</span><span class="o">.</span><span class="n">abit_string</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">abit_string</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-
-                    <span class="k">elif</span> <span class="n">B</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">th</span><span class="p">:</span> <span class="c1"># if B does NOT trust A over the threshhold, VERIFY</span>
-                        <span class="n">B</span><span class="o">.</span><span class="n">State</span> <span class="o">=</span> <span class="s1">&#39;VERIFYING&#39;</span>
-                        <span class="n">B</span><span class="o">.</span><span class="n">sig_qual</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;HIGH&#39;</span><span class="p">)</span>
-                        <span class="n">B</span><span class="o">.</span><span class="n">uncertain_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span><span class="p">)</span>
-                        <span class="n">B</span><span class="o">.</span><span class="n">prev_bit_signals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">abit_string</span><span class="p">)</span>
-
-                <span class="k">elif</span> <span class="n">dec</span> <span class="o">==</span> <span class="s1">&#39;low trust&#39;</span><span class="p">:</span> <span class="c1"># if A does NOT trust B</span>
-
-                    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">:</span> <span class="c1"># coin flip -- high signal</span>
-                        <span class="k">if</span> <span class="n">B</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">th</span><span class="p">:</span> <span class="c1"># B trust A </span>
-                            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">abit_string</span><span class="p">)):</span>
-                                    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">B</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span><span class="p">]:</span>
-                                        <span class="n">B</span><span class="o">.</span><span class="n">abit_string</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">abit_string</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                        <span class="k">elif</span> <span class="n">B</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">th</span><span class="p">:</span> <span class="c1"># B doesn&#39;t trust A</span>
-                            <span class="n">B</span><span class="o">.</span><span class="n">State</span> <span class="o">=</span> <span class="s1">&#39;VERIFYING&#39;</span>
-                            <span class="n">B</span><span class="o">.</span><span class="n">sig_qual</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;HIGH&#39;</span><span class="p">)</span>
-                            <span class="n">B</span><span class="o">.</span><span class="n">prev_bit_signals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">abit_string</span><span class="p">)</span>
-                            <span class="n">B</span><span class="o">.</span><span class="n">uncertain_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span><span class="p">)</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">rdm</span> <span class="o">=</span> <span class="n">rbitstring</span><span class="p">(</span><span class="n">m</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
-                        <span class="k">if</span> <span class="n">B</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">th</span><span class="p">:</span> <span class="c1"># B trust A </span>
-                            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">abit_string</span><span class="p">)):</span>
-                                <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">B</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span><span class="p">]:</span>
-                                    <span class="n">B</span><span class="o">.</span><span class="n">abit_string</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rdm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                        <span class="k">elif</span> <span class="n">B</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">th</span><span class="p">:</span> <span class="c1"># B doesn&#39;t trust A</span>
-                            <span class="n">B</span><span class="o">.</span><span class="n">State</span> <span class="o">=</span> <span class="s1">&#39;VERIFYING&#39;</span>
-                            <span class="n">B</span><span class="o">.</span><span class="n">sig_qual</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;LOW&#39;</span><span class="p">)</span>
-                            <span class="n">B</span><span class="o">.</span><span class="n">prev_bit_signals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rdm</span><span class="p">)</span>
-                            <span class="n">B</span><span class="o">.</span><span class="n">uncertain_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span><span class="p">)</span>
-
-
-    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span> <span class="o">==</span> <span class="p">[]:</span>
-            <span class="k">pass</span>
-        <span class="k">else</span><span class="p">:</span>
-
-            <span class="n">sig_ids</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertain_ids</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">sig_qual</span><span class="p">))</span>
-
-            <span class="n">bit_ids</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertain_ids</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">prev_bit_signals</span><span class="p">))</span>
-
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">uncertain_ids</span><span class="p">:</span>
-
-                <span class="k">if</span> <span class="n">sig_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;HIGH&#39;</span><span class="p">:</span>
-                    <span class="n">update_high</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;high&#39;</span><span class="p">)</span>
-                    <span class="c1"># update the trust for agent A </span>
-
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">update_amt</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">update_amt</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-
-                    <span class="c1"># incorporate info </span>
-
-                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">abit_string</span><span class="p">)):</span>
-                            <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">abit_string</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">bit_ids</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
-
-                    <span class="bp">self</span><span class="o">.</span><span class="n">State</span> <span class="o">=</span> <span class="s1">&#39;UPDATING&#39;</span>
-
-                <span class="k">elif</span> <span class="n">sig_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;LOW&#39;</span><span class="p">:</span>
-
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="o">-</span><span class="n">update_amt</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="o">-</span><span class="n">update_amt</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">neighbor_trust</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-
-                    <span class="bp">self</span><span class="o">.</span><span class="n">State</span> <span class="o">=</span> <span class="s1">&#39;UPDATING&#39;</span>
-
-                    <span class="n">update_low</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;low&#39;</span><span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">sig_qual</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">prev_bit_signals</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">uncertain_ids</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">counter</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">initial_trust</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trust_val</span><span class="p">))</span>
-            <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">schedule</span><span class="o">.</span><span class="n">agents</span><span class="p">:</span>
-                <span class="n">a</span><span class="o">.</span><span class="n">get_neighbors_nodes</span><span class="p">()</span>
-                <span class="n">a</span><span class="o">.</span><span class="n">assign_trust</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">counter</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">pass</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">State</span> <span class="o">==</span> <span class="s1">&#39;UPDATING&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">updating</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">State</span> <span class="o">==</span> <span class="s1">&#39;VERIFYING&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">()</span>
-
-
-<span class="k">class</span> <span class="nc">info_model</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A model with some number of agents in a network.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_nodes</span><span class="p">,</span> <span class="n">avg_node_degree</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_nodes</span> <span class="o">=</span> <span class="n">num_nodes</span>
-        <span class="n">prob</span> <span class="o">=</span> <span class="n">avg_node_degree</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_nodes</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">prob</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid</span> <span class="o">=</span> <span class="n">NetworkGrid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">schedule</span> <span class="o">=</span> <span class="n">RandomActivation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="c1"># Create agents</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">()):</span>
-            <span class="n">a</span> <span class="o">=</span> <span class="n">human</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">place_agent</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">schedule</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span><span class="mi">1</span>
-        <span class="n">mean_trust_step_l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">trust_val</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">schedule</span><span class="o">.</span><span class="n">agents</span><span class="p">]))</span>
-        <span class="n">step_count</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">)</span>
-        <span class="c1"># get the counts of each possible bit string at each step of the model </span>
-        <span class="n">agent_strings</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">abit_string</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">schedule</span><span class="o">.</span><span class="n">agents</span><span class="p">]</span>
-
-        <span class="n">cnt</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">agent_strings</span><span class="p">:</span>
-            <span class="n">cnt</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">z</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">counts_l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
-        <span class="n">most_common_l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cnt</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">200</span><span class="p">)</span>
-
-<span class="c1">#       &quot;&quot;&quot;Advance the model 1 step.&quot;&quot;&quot;</span>
-</pre></div>
+Future work can explore how differences in network structure can be used to produce different patterns of information flow. This includes both evaluations of dynamic networks and different networks (e.g., scale-free networks, random networks, etc.) </p>
 
 </div>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># counts_plot = []</span>
-<span class="c1"># for i in range(0,100):</span>
-<span class="c1">#     random.seed(a = i)</span>
-
-<span class="c1">#     model = info_model(num_nodes = 200, avg_node_degree = 5)</span>
-
-<span class="c1">#     initial_trust = []</span>
-<span class="c1">#     mean_trust_step_l =[]</span>
-<span class="c1">#     step_count = []</span>
-<span class="c1">#     update_high = []</span>
-<span class="c1">#     update_low = []</span>
-<span class="c1">#     mean_trust_agent_step_l = []</span>
-<span class="c1"># #     var_trust_step_l = []</span>
-<span class="c1">#     counts_l = []</span>
-<span class="c1">#     most_common_l = []</span>
-
-<span class="c1">#     for j in range(200):</span>
-<span class="c1">#         model.step()</span>
-
-<span class="c1">#     most_common[str(i)] = most_common_l</span>
-<span class="c1">#     counts_plot = counts_l</span>
-<span class="c1">#     mean_trust_step[str(i)] = mean_trust_step_l</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
     </div>
   </div>
 </body>
