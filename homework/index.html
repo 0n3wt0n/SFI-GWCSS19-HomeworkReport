@@ -11803,7 +11803,7 @@ Nodes change their beliefs if they are sufficiently inconsistent with the averag
 More specifically, the node subtracts the account value provided to them by their neighbor from their belief value to determine if it is greater than the threshold to distort.
 If the absolute value of the difference is greater than the threshold to distort, then the node changes the account value based on their distortion value.
 The direction in which the node distorts the value is based on the belief.
-In other words, if the belief is 1, then agent distorts the account so that it is closer to 1.
+In other words, if the belief is 1, then node distorts the account so that it is closer to 1.
 </p>
 
 
@@ -11887,12 +11887,12 @@ In other words, if the belief is 1, then agent distorts the account so that it i
 <p>In the model, we assumed the following:
 <ul>
   <li>the structure of the network remains unchanged over time (see Figure 1);</li>
-  <li>agents hold a set of beliefs that are relevant to the contradicting accounts;</li>
-  <li>an agent's beliefs can change over time;</li>
-  <li>an account of an event is more or less coherent with an agent's beliefs;</li>
-  <li>agents will distort an account if it conflicts with their beliefs;</li>
-  <li>agents will always decide to share account their neighbors;</li>
-  <li>agents will engage in bidirectional sharing of account.</li>
+  <li>nodes hold a set of beliefs that are relevant to the contradicting accounts;</li>
+  <li>an node's beliefs can change over time;</li>
+  <li>an account of an event is more or less coherent with an node's beliefs;</li>
+  <li>nodes will distort an account if it conflicts with their beliefs;</li>
+  <li>nodes will always decide to share account their neighbors;</li>
+  <li>nodes will engage in bidirectional sharing of account.</li>
 </ul>
 </p>
 
@@ -11920,22 +11920,20 @@ On one hand, we have the belief system that is changing, and, on the other,
 the account value of the observed event.</p>
 
 <p> The process starts off with a random initialization of the belief system.
-The neighborhoods that happen to have many of their neighbors similar in terms
+The neighborhoods that happen to have high similarity in terms
 of their belief systems will be resistant to changes from their opposing surrounding nodes.
 This means that there is an early transition from the random initialization into
 a locked-in state of clustered belief systems. Once these are settled they start
-to spread clock-wise through the lattice, as illustrated in Figure 2.</p>
-
-<p> The focal node sends out its account value to all its neighbors.
+to spread clock-wise through the lattice, as illustrated in Figure 2.
+The focal node sends out its account value to all its neighbors.
 This will not make a change to the neighbors with the same belief system and similar
 account values, i.e., the counter-clockwise nodes. Sending it ”forward” to the
-opposing neighbors will change the opposing neighbors value closer to the value of the focal node.
+opposing neighbors will change the opposing neighbors' value closer to the value of the focal node.
 After these account-value-messages have been sent for each iteration,
 the nodes update their belief system. If the mean of the neighbors account values is less than or equal to 0.5 then the focal node will
-change its belief system to 0, and 1 if it is greater than 0.5.</p>
-
-The process will stop whenever the belief-system process converges to either 0 or 1 for all the agents. 
-    Then all the agents will simply accept their neighbors account value and conversion happens.
+change its belief system to 0, and 1 if it is greater than 0.5.
+The process will stop when the belief-system process converges to either 0 or 1 for all the nodes.
+At this point, all nodes will simply accept their neighbors' account value and convergence happens.</p>
 
 <BODY>
 <IMG SRC="roundtheclock.gif">
@@ -11946,25 +11944,23 @@ The process will stop whenever the belief-system process converges to either 0 o
 
 <h3> Outcomes </h3>
 
-<p> The following three plots shows the output of the simulations for the combinations
-Boundary spanner - Boundary spanner, Boundary spanner - Regular node, Regular node - Regular node
+<p> The plots in Figures 3-5 show the output of the simulations for each possible combination of
+Boundary Spanner - Boundary Spanner, Boundary Spanner - Regular Node, Regular Node - Regular Node
 for the threshold values of 0.25, 0.5 and 0.75 of distances between the account value and
 the belief system to choose to distort the account or adopt it as it is.</p>
 
 <p>For threshold value of 0.25 we can see that convergence does not happen within 50 iterations,
 but that it asymptotically tends to convergence. An interesting pattern emerges here.
 For symmetry reasons, one would intuitively believe that having two boundary spanners or two regular nodes would be
-two end-points of a spectrum of fluctuations, with one each being in the middle. But as we can
-see the largest fluctuation happens when we have one each. The hypothetical explanation for this
-behaviour is the following: </p>
-
-<p> Let us begin with noting that the starting amplitude is greatest for the slowest converging
-combination. After this initial iteration it is on average a doubly monotonic process until convergence. T
-his indicates that the processes might be the same, just starting from different amplitudes. So why does the One each start off with
-a higher amplitude? We believe this is due to the low threshold to distort, such that regular node (starting off with either 0.25 or 0.75) is able to start influencing its neighbors (starting at 0.5) immediately.
-If the threshold to distort is higher then the account values wouldn't penetrate through from the regular nodes, but instead become distorted to
-whatever belief system that the neighbors have and the values wouldn't become so extreme, but instead stays near the
-    middle ground.</p>
+two end-points of a spectrum of fluctuations, with one boundary spanner and one regular node being in the middle. But as we can
+see the largest fluctuation happens when the accounts are introduced by one boundary spanner and one regular node.
+We speculate that this is due to a few reasons. Let us begin with noting that the starting amplitude is greatest for the slowest converging
+combination (i.e., the bottom plot in Figure 3). After this initial iteration, it slowly moves towards convergence.
+This indicates that the processes might be the same, just starting from different amplitudes.
+So why does the one boundary spanner and one regular node simulation start off with a greater differences in amplitude?
+We believe this is due to the low threshold to distort, such that regular node (starting off with an account value of either 0.25 or 0.75) is able to start influencing its neighbors (starting with an account value of 0.5) immediately.
+If the threshold to distort is higher, then the account value would not penetrate through the neighborhood from the regular node.
+Instead, the account value would become distorted towards its neighbors' beliefs resulting in values near the middle ground, rather than either of the two extremes (0 or 1). </p>
 
 
 
@@ -11975,14 +11971,14 @@ whatever belief system that the neighbors have and the values wouldn't become so
 <h4 id="Figure-3:-Model-TwentyFive">Figure 3: Temporal changes in account value when threshold to distort is set to 0.25.
 The nodes fail to converge on an account in less than 50 iterations but presents less variability in account in the case of regular node-regular node account sources.
 Furthermore, the nodes distort the account towards one of the intially introduced accounts.
-We observe the greatest variability in account values over time when accounts are introduced by different node types </h4>
+We observe the greatest variability in account values over time when accounts are introduced by different node types. </h4>
 
 
 <BODY>
 <IMG SRC="individuals2.png" width="600" height="800">
 </BODY>
 
-<h4 id="Figure-3:-Model-Fifty">Figure 4: Temporal changes in account value when threshold to distort is set to 0.5.
+<h4 id="Figure-4:-Model-Fifty">Figure 4: Temporal changes in account value when threshold to distort is set to 0.5.
 In  this case, the nodes converge on an account between approximately 20 and 30 iterations. Across initial account sources, the nodes converge to a middle ground.
 We observe the greatest fluctuation in accounts over time when they are intially introduced by similar nodes compared to when they are introduced by different types of nodes (i.e.,  one boundary spanner and one regular node). </h4>
 
@@ -12008,11 +12004,18 @@ Interestingly, when the accounts originate from two different sources (i.e., one
 
 <h2 id="Discussion">Discussion</h2>
 
-<p>The results of the model suggest that position of the nodes that introduce the accounts and the threshold to distort can produce differences in terms of the time to converge and the convergence to a particular account or a middle ground. </p>
-<p>Our model can be improved upon and extended in several ways.
-Future work can explore how differences in network structure can be used to produce different patterns of information flow. This includes both evaluations of dynamic networks and different networks (e.g., scale-free networks, random networks, etc.).
+<p>The results of the model suggest that position of the nodes that introduce the accounts and the threshold to distort can produce differences in terms of the time to converge and the convergence to a particular account or a middle ground. Our model can be improved upon and extended in several ways.
+Future work can explore how differences in network structure can be used to produce different patterns of information flow.
+This includes both evaluations of dynamic networks and different networks (e.g., scale-free networks, random networks, etc.).
 In the model presented here, all nodes are governed by same belief change rule; nodes change their beliefs when the majority of their neighbors hold beliefs that differ from their own.
-The likelihood of individual to change their beliefs can be explored further, e.g., as a means to to increase the heteogeneity of the nodes in the network.</p>
+The likelihood of individual to change their beliefs can be explored further, e.g., as a means to to increase the heteogeneity of the nodes in the network.
+Heterogenity of the nodes can also be increased by taking into account varying degrees of influence and their relation to virality, rather than focusing solely on two types of nodes.
+This model can be applied to study several scenarios of interest to social scientists, particularly in exploring differences in information cascades.
+In terms of more practical applications, this model can help researchers understand the emergence of new opinion leaders.
+For example, in the bottom plot of Figure 3, we see that the presence of regular node in combination with the low threshold to distort results in its ability to quickly spread its distorted account.
+Another clear application for this work is in the study of narrative and counter-narrative for the purposes of persuasion.
+Here, researchers can explore how the introduction of a counter-narrative at a particular network position and point in time can potentially override an existing narrative.
+</p>
 
 </div>
 </div>
